@@ -23,3 +23,23 @@ $ npm i express express-session express-formidable axios adminjs prisma
 
 $ npm i @adminjs/express @adminjs/prisma @prisma/client
 ```
+
+### Setup Postgresql database in localhost
+- Installed and configured database locally in ubuntu machine
+```
+$ sudo apt update
+$ sudo apt install postgresql postgresql-contrib
+
+#checking if postgresql database in running or not
+$ systemctl status postgresql.service
+
+# using psql to connect to postgresql
+$ sudo -i -u postgres
+$ psql
+
+# now we are inside psql commandline prompt
+# change the default user password
+postgres# alter role postgres with password `app123';
+```
+
+### Setup Prisma ORM to create tables and query database from application
