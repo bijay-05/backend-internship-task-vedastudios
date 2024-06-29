@@ -50,3 +50,13 @@ postgres# alter role postgres with password `app123';
 - The above command does one more thing: it generates `PrismaClient`, which we can use in our application to perform operations on the database.
 
 ![prisma-migration-success]()
+
+### Fetch the products and populate the database
+
+- We will first fetch categories from the API `dummyjson.com/products/categories`
+
+- For each category object, insert that category into `Category` table and fetch product records from the API `dummyjson.com/products/category/{category-slug}`.
+
+- For each product object, insert that product into `Product` table and extract `images` property of the particular product object.
+
+- For each image URL in the `images` array, we will insert that image record into `Image` table.
