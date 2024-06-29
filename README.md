@@ -46,3 +46,7 @@ postgres# alter role postgres with password `app123';
 - Initializing `prisma` cli with `npx prisma init`. This creates `prisma` directory in the root directory with file `schema.prisma` inside the folder. Besides this, the command also creates a `.env` file with environment variable `DATABASE_URL` for our postgresql database.
 - Edit the `.env` file with `DATABASE_URL` for our local database.
 - Edit the `prisma/schema.prisma` file with models ( `Category`, `Product`, `Image` ), which represent equivalent tables in our **Postgresql** database.
+- Now we run migrations on our database with `npx prisma migrate dev --name init`. This command, first creates a new SQL migration file for this migration and then  runs this SQL migration file against the database. Finally we get prisma model equivalent tables in our database.
+- The above command does one more thing: it generates `PrismaClient`, which we can use in our application to perform operations on the database.
+
+![prisma-migration-success]()
