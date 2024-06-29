@@ -63,7 +63,7 @@ postgres# alter role postgres with password `app123';
 
 > There was one issue encountered, when running the main function to populate the database. The environment variable `DATABASE_URL` in `.env` file was not accessible for `PrismaClient` from `populatedb.js` script. So, I had to export the variable with command `export DATABASE_URL="postgresql://<username>:<password>@localhost:5432/ecommerce?schema=public"`
 
-### Setup Admin Panel with AdminJS and Express
+## Setup Admin Panel with AdminJS and Express
 
 - We will use the `PrismaClient` here, to provide prisma models as resources to `AdminJS instance`. But before that, we will register the `Database` and `Resource` adapters from `@adminjs/prisma` with `AdminJS`.( so `AdminJS` can identify the adapters used to connecting to the database )
 
