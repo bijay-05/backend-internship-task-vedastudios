@@ -60,3 +60,6 @@ postgres# alter role postgres with password `app123';
 - For each product object, insert that product into `Product` table and extract `images` property of the particular product object.
 
 - For each image URL in the `images` array, we will insert that image record into `Image` table.
+
+> There was one issue encountered, when running the main function to populate the database. The environment variable `DATABASE_URL` in `.env` file was not accessible for `PrismaClient` from `populatedb.js` script. So, I had to export the variable with command `export DATABASE_URL="postgresql://<username>:<password>@localhost:5432/ecommerce?schema=public"`
+
