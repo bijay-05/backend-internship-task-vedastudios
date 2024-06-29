@@ -1,0 +1,24 @@
+{ 
+  "compilerOptions": {
+  "target": "ES6",
+  "jsx": "react",
+  "module": "NodeNext",
+  "moduleResolution": "NodeNext",
+  "esModuleInterop": true,
+  "skipDefaultLibCheck": true, 
+  "skipLibCheck": true,
+  "outDir": "./dist",
+  "incremental": true,
+  "resolveJsonModule": true,
+  "declaration": false,
+  "allowJs": true,
+  "sourceMap": false,
+  "emitDecoratorMetadata": true,
+  "experimentalDecorators": true,
+  "allowSyntheticDefaultImports": true,
+  "baseUrl": "./",
+  "removeComments": true
+ },
+  "exclude": ["node_modules"],
+  "include": ["src"]
+}
