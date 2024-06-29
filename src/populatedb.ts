@@ -1,11 +1,13 @@
 import { retrieveCategory, retrieveProduct } from "./retriever.js";
-import { categoryObj, productObj } from "./interface.js";
+import { productObj } from "./interface.js";
 import { PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient();
 
 
 // function to insert single category object into Category table
+// caution: Category is prisma model, but `prisma.category` below represents table
+// Category in the database.
 const insertCategory = async (categoryObjectId: number, categoryName: string) => {
     await prisma.category.create({
         data: {
@@ -47,8 +49,8 @@ const populateDatabase = async () => {
     // first get categories and loop over the list
     // for each category , insert the category into Category table
     // and get products for each category
-    // for each product, insert the image records into Image table
-    // and finally insert each product
+    // for each product, insert the product into Product table
+    // and finally insert the record images into Image table
 
 
     const categoryObjectList = await retrieveCategory();
@@ -74,7 +76,7 @@ const populateDatabase = async () => {
             for(let k=0; k<imageList.length; k++) {
 
                 const imageUrl = imageList[k];
-                
+
                 await insertImage(imageUrl, productObject.id);
             }
 
