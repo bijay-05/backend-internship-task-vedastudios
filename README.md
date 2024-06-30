@@ -59,7 +59,7 @@ postgres# alter role postgres with password `app123';
 
 #### Prisma Migrations Screenshot
 
-<img src="images/prisma-migration-successful.png", width="100%">
+<img src="images/prisma-migration-successful.png" width="100%">
 
 
 
