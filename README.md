@@ -69,8 +69,15 @@ postgres# alter role postgres with password `app123';
 
 - We pass the available resources ( **prisma models** ) as `adminOptions` configuration object to `AdminJS` instance.
 
+- In order to render product images, we will define `Image` property as options for `Product` resource. This property will have components which load custom React components ( for image rendering ) defined inside `components/` directory.
+
+- Our image rendering components defined for `Image` property will need product's corresponding image object ( from `Image` table in the database ) as props. So, we will enrich the response for `Product` resource from the database, with values for corresponding product's `Image` property by using `after` hook for `list` and `show` actions for the `Product` resource options.
+
 - Then, create an `express app`, and an instance of `AdminJS` with above configuration object.
 
 - Build a router for `/{admin.options.rootPath}` with `AdminJSExpress.buildRouter()`, and use that router with above created `express app`.
 
 - Finally, start the `express app` by calling `app.listen()` method, and passing the **PORT** number and callback function as argument.
+
+
+##
