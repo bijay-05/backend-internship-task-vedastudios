@@ -4,6 +4,7 @@ import express from 'express';
 import AdminJSExpress from '@adminjs/express';
 import { Database, Resource, getModelByName } from '@adminjs/prisma';
 
+import { Components, componentLoader } from './components.js';
 
 const prisma = new PrismaClient();
 
@@ -19,10 +20,62 @@ const start = async () => {
     },
     {
       resource: { model: getModelByName('Product'), client: prisma },
-      options: {}
+      options: {
+        properties: {
+          Image: {
+            type: 'string',
+            components: {
+              list: Components.imageList,
+              show: Components.imageShow,
+            }
+          }
+        },
+        actions: {
+          list: {  // using `after` hook to modify the response from client
+                    // and adding image properties ( from Image table ) for the product
+              after: async (response) => {
+                  const products = response.records.map(async (record) => {
+                      const image = await prisma.image.findFirst({
+                          where: { productId: record.id },
+                          orderBy: {
+                              id: 'desc',
+                          },
+                          select: {
+                            'url': true,
+                            'id': true
+                          }
+                      });
+                      record.params.Image = image;
+                      return record;
+                  });
+                  response.records = await Promise.all(products);
+                  return response;
+              }
+          },
+          show: {
+              after: async (response) => {
+                  const record = response.record;
+                  const image = await prisma.image.findFirst({
+                      where: {productId: record.id},
+                      orderBy: {
+                        id: 'desc',
+                      },
+                      select: {
+                        'url': true
+                      }
+                  });
+                  response.record.params.Image = image;
+
+                  return response;
+              }
+          }
+
+        }
+      }
     }
-  ]
-  }
+  ],
+  componentLoader
+}
 
   const app = express();
 
@@ -35,7 +88,7 @@ const start = async () => {
   app.use(admin.options.rootPath, adminRouter);
 
   app.listen(PORT, () => {
-    console.log(`AdminJS started on http:20.244.35.164:${PORT}${admin.options.rootPath}`)
+    console.log(`AdminJS started on localhost:${PORT}${admin.options.rootPath}`)
   })
 }
 
